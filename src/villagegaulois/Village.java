@@ -59,7 +59,7 @@ public class Village {
 		}
 		return chaine.toString();
 	}
-
+//////////////////////// METHODES MARCHE ///////////////////////
 	public String installerVendeur(Gaulois vendeur, String produit, int nbProduit) {
 		int nEtal = marche.trouverEtalLibre();
 		StringBuilder chaine = new StringBuilder();
@@ -112,13 +112,13 @@ public class Village {
 		return chaine.toString();
 
 	}
+/////////////////////// CLASSE INTERNE ///////////////////////	
+	private static class Marche {
 
-	class Marche {
+		private int nbEtals;
+		private Etal[] etals;
 
-		int nbEtals;
-		Etal[] etals;
-
-		Marche(int nbEtals) {
+		private Marche(int nbEtals) {
 			this.nbEtals = nbEtals;
 			etals = new Etal[nbEtals];
 			for (int i = 0; i < nbEtals; i++) {
@@ -126,11 +126,11 @@ public class Village {
 			}
 		}
 
-		void utiliserEtal(int indiceEtal, Gaulois vendeur, String produit, int nbProduit) {
+		private void utiliserEtal(int indiceEtal, Gaulois vendeur, String produit, int nbProduit) {
 			etals[indiceEtal].occuperEtal(vendeur, produit, nbProduit);
 		}
 
-		int trouverEtalLibre() {
+		private int trouverEtalLibre() {
 			int a = -1;
 			for (int i = 0; i < nbEtals; i++) {
 				if (!(etals[i].isEtalOccupe())) {
@@ -141,14 +141,14 @@ public class Village {
 			return a;
 		}
 
-		Etal[] trouverEtals(String produit) {
+		private Etal[] trouverEtals(String produit) {
 			int x = 0;
 			for (int i = 0; i < nbEtals; i++) {
 				if (etals[i].contientProduit(produit)) {
 					x++;
 				}
 			}
-			Etal[] tabProduit = new Etal[x];
+			final Etal[] tabProduit = new Etal[x];
 			for (int i = 0, j=0; i < nbEtals; i++) {
 				if (etals[i].contientProduit(produit)) {
 					tabProduit[j] = etals[i];
@@ -161,7 +161,7 @@ public class Village {
 
 		}
 
-		Etal trouverVendeur(Gaulois gaulois) {
+		private Etal trouverVendeur(Gaulois gaulois) {
 			Etal etalGaulois = null;
 			for (int i = 0; i < nbEtals; i++) {
 				if (etals[i].getVendeur() == gaulois) {
@@ -171,7 +171,7 @@ public class Village {
 			return etalGaulois;
 		}
 
-		String afficherMarche() {
+		private String afficherMarche() {
 			int nbEtalVide = 0;
 			StringBuilder chaine = new StringBuilder();
 			for (int i = 0; i < nbEtals; i++) {
@@ -186,5 +186,6 @@ public class Village {
 		}
 
 	}
+	//////////////////////// FIN CLASSE INTERNE ///////////////////////
 
 }

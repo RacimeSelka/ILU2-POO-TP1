@@ -55,6 +55,12 @@ public class Etal {
 	}
 
 	public String acheterProduit(int quantiteAcheter, Gaulois acheteur) {
+		if (quantiteAcheter<1) {
+			throw new IllegalArgumentException("“la quantité doit être positive");
+		}
+		if (!etalOccupe) {
+			throw new IllegalStateException("l'étal n'est pas occupé");
+		}
 		try {
 			StringBuilder chaine = new StringBuilder();
 			chaine.append(acheteur.getNom() + " veut acheter " + quantiteAcheter
@@ -79,14 +85,6 @@ public class Etal {
 			return chaine.toString();
 		}catch(NullPointerException e) {
 			System.err.println("Erreur: l’acheteur ne doit pas être null");
-			
-			return "";
-		}catch(IllegalArgumentException e) {
-			System.err.println("Erreur: la quantité doit être positive");
-			e.printStackTrace();
-			return "";
-		}catch(IllegalStateException e) {
-			System.err.println("Erreur: l’étal doit être occupé");
 			return "";
 		}
 		

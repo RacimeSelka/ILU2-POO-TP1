@@ -9,7 +9,19 @@ public class ScenarioCasDegrade {
 		Etal etal = new Etal();
 		Gaulois acheteur=new Gaulois("a",5);
 		
-		etal.acheterProduit(5,acheteur);
+		
+		
+		try {
+			etal.acheterProduit(8,acheteur);
+			etal.acheterProduit(0,acheteur);
+			
+			
+		} catch (IllegalStateException e) {
+			System.err.println("Erreur : " + e.getMessage());
+		}
+		catch (IllegalArgumentException e) {
+			System.err.println("Erreur : " + e.getMessage());
+		} 
 		
 		System.out.println("Fin du test");
 	}
